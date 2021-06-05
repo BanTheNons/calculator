@@ -182,17 +182,21 @@ export async function handleRequest(request: Request): Promise<Response> {
             row.components.some((button: any) => button.custom_id === interaction.data.custom_id) ? clickedButton = row.components.find((button: any) => button.custom_id === interaction.data.custom_id) : undefined
         })
 
+        let equation = interaction.message.content.replace(/```/g, '').replace(/\n/g, '').replace(/.*= /, '').replace(/ /g, '')
+
+        if (equation.includes('Error')) equation = ''
+
         if (clickedButton.style === 1) return respond({
             type: 7,
             data: {
-                content: `\`\`\`\n${interaction.message.content.replace(/```/g, '').replace(/\n/g, '').replace(/ /g, '') + clickedButton.custom_id}\n\`\`\``
+                content: `\`\`\`\n${equation + clickedButton.custom_id}\n\`\`\``
             }
         })
 
         if (clickedButton.style === 2) return respond({
             type: 7,
             data: {
-                content: `\`\`\`\n${interaction.message.content.replace(/```/g, '').replace(/\n/g, '').replace(/ /g, '') + clickedButton.custom_id}\n\`\`\``
+                content: `\`\`\`\n${equation + clickedButton.custom_id}\n\`\`\``
             }
         })
 
@@ -211,15 +215,14 @@ export async function handleRequest(request: Request): Promise<Response> {
                 return respond({
                     type: 7,
                     data: {
-                        content: `\`\`\`\n${result}\n\`\`\``
+                        content: `\`\`\`\n${equation.replace(/\*/g, 'x')} = ${result}\n\`\`\``
                     }
                 })
             } catch (e) {
                 return respond({
-                    type: 4,
+                    type: 7,
                     data: {
-                        flags: 64,
-                        content: 'That\'s not a valid equation!'
+                        content: '```Error: Invalid Equation```'
                     }
                 })
             }
