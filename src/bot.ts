@@ -29,7 +29,7 @@ const components = [
             {
                 type: 2,
                 custom_id: 'delete',
-                label: 'Delete',
+                label: 'Del',
                 style: 4
             }
         ]
