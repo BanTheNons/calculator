@@ -2,7 +2,7 @@
   "name": "pname",
   "version": "1.0.0",
   "description": "Cloudflare worker TypeScript template",
-  "main": "index.js",
+  "main": "dist/worker.js",
   "scripts": {
     "build": "webpack",
     "dev": "NODE_ENV=development npm run build",
@@ -26,10 +26,11 @@
     "service-worker-mock": "^2.0.5",
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.5",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12"
+    "webpack": "^5.15.0",
+    "webpack-cli": "^4.3.1"
   },
   "dependencies": {
+    "discord-api-types": "^0.19.0-next.8627c9d2195aaa0a97de2fdf9f64ba0c0ff6db02",
     "discord-interactions": "^2.1.0"
   }
 }

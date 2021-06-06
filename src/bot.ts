@@ -1,7 +1,3 @@
-import { verifyKey } from "discord-interactions";
-import { PUBLIC_KEY } from "./constants";
-
-
 const components = [
     {
         type: 1,
@@ -185,8 +181,8 @@ const components = [
 ]
 
 export async function handleRequest(request: Request): Promise<Response> {
-    if (!request.headers.get('X-Signature-Ed25519') || !request.headers.get('X-Signature-Timestamp')) return Response.redirect('https://advaith.io')
-    const valid = verifyKey(await request.clone().arrayBuffer(), request.headers.get('X-Signature-Ed25519')!, request.headers.get('X-Signature-Timestamp')!, PUBLIC_KEY)
+    if (!request.headers.get('X-Signature-Ed25519') || !request.headers.get('X-Signature-Timestamp')) return new Response('', { status: 401 })
+    const valid = (await import('discord-interactions')).verifyKey(await request.clone().arrayBuffer(), request.headers.get('X-Signature-Ed25519')!, request.headers.get('X-Signature-Timestamp')!, (await (await import('./constants')).PUBLIC_KEY))
     if (!valid) return new Response('', { status: 401 })
 
 
